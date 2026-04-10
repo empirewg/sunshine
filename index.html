@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>命理 · 风水 · 阴阳宅 | 卦馆</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B4513;
+            --secondary: #D4AF37;
+            --bg-cream: #FDF8F0;
+            --bg-paper: #F5F0E8;
+            --text-dark: #2C2416;
+            --text-light: #6B5D4F;
+            --border: #D4C4B0;
+        }
+
+        body {
+            font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* 顶部标题区 */
+        .header {
+            background: linear-gradient(135deg, #2C2416 0%, #4A3F2E 100%);
+            color: var(--secondary);
+            padding: 60px 20px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "☯";
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .header-top {
+            font-size: 14px;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .header-title {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 12px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-location {
+            font-size: 18px;
+            letter-spacing: 6px;
+            color: #C9B896;
+            margin-bottom: 30px;
+        }
+
+        .header-motto {
+            font-size: 16px;
+            color: #A09070;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 2;
+            font-style: italic;
+        }
+
+        /* 服务板块 */
+        .services {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background: var(--bg-paper);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .service-title {
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .service-desc {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.9;
+        }
+
+        /* 理念区域 */
+        .philosophy {
+            background: var(--bg-paper);
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .philosophy-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .philosophy h2 {
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 30px;
+            letter-spacing: 4px;
+        }
+
+        .philosophy p {
+            font-size: 17px;
+            color: var(--text-light);
+            line-height: 2.2;
+            margin-bottom: 20px;
+        }
+
+        .philosophy .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* 产品展示 */
+        .products {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 15px;
+            color: var(--text-light);
+            margin-bottom: 50px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, #F5F0E8 0%, #E8E0D5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-tag {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .product-name {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .product-desc {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .product-usage {
+            font-size: 13px;
+            color: #8B7355;
+            font-style: italic;
+            border-left: 3px solid var(--secondary);
+            padding-left: 12px;
+        }
+
+        /* 联系区域 */
+        .contact {
+            background: #2C2416;
+            color: #C9B896;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .contact-text {
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .contact-phone {
+            font-size: 24px;
+            color: var(--secondary);
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: #1A1612;
+            color: #6B5D4F;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+        }
+
+        /* 装饰元素 */
+        .divider {
+            text-align: center;
+            margin: 40px 0;
+            color: var(--border);
+            font-size: 24px;
+            letter-spacing: 10px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 32px;
+                letter-spacing: 6px;
+            }
+            
+            .header-location {
+                font-size: 14px;
+            }
+            
+            .services-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .service-card,
+            .product-card {
+                padding: 25px 20px;
+            }
+        }
+
+        /* 滚动动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 头部区域 -->
+    <header class="header">
+        <div class="header-top">命理 · 风水 · 阴阳宅 · 家居调理</div>
+        <h1 class="header-title">卦馆</h1>
+        <div class="header-location">天 津 武 清</div>
+        <p class="header-motto">
+            承古人之智，察天地之气<br>
+            以易理为本，助有缘人趋吉避凶
+        </p>
+    </header>
+
+    <!-- 服务板块 -->
+    <section class="services">
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <span class="service-icon">🧠</span>
+                <h3 class="service-title">心理咨询</h3>
+                <p class="service-desc">
+                    疏导心结，调理情志<br>
+                    化解焦虑、困扰与迷惘<br>
+                    找回内心平静
+                </p>
+            </div>
+
+            <div class="service-card fade-in">
+                <span class="service-icon">🌟</span>
+                <h3 class="service-title">命理调理</h3>
+                <p class="service-desc">
+                    八字推演，命运解析<br>
+                    五行流通，运势调理<br>
+                    知命而行，顺势而为
+                </p>
+            </div>
+
+            <div class="service-card fade-in">
+                <span class="service-icon">🏠</span>
+                <h3 class="service-title">家居环境</h3>
+                <p class="service-desc">
+                    户型诊断，风水布局<br>
+                    气场调理，旺财旺人<br>
+                    营造和谐居家环境
+                </p>
+            </div>
+
+            <div class="service-card fade-in">
+                <span class="service-icon">☯️</span>
+                <h3 class="service-title">阴阳宅调理</h3>
+                <p class="service-desc">
+                    阳宅旺财布局<br>
+                    阴宅穴位调理<br>
+                    荫及子孙，福泽绵长
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 理念阐述 -->
+    <section class="philosophy">
+        <div class="philosophy-content fade-in">
+            <h2>传承易经智慧</h2>
+            <p>
+                卦馆，取<span class="highlight">"卦象"</span>与<span class="highlight">"馆舍"</span>之意，传承易经智慧，专注命理、风水与家居环境调理。
+            </p>
+            <p>
+                <span class="highlight">不尚玄虚，以理服人。</span>以八字为纲，以风水为用，以心理疏导为辅，帮助有缘人看清方向，调理气场，趋吉避凶。
+            </p>
+            <p style="font-size: 19px; color: var(--primary); margin-top: 30px;">
+                每一卦，皆是责任。每一人，皆是缘分。
+            </p>
+        </div>
+    </section>
+
+    <!-- 产品展示 -->
+    <section class="products">
+        <h2 class="section-title">开光加持，灵性器物</h2>
+        <p class="section-subtitle">摆放得宜，可助家宅安宁、财气流通、运势提升</p>
+        
+        <div class="products-grid">
+            <div class="product-card fade-in">
+                <div class="product-image">🐘</div>
+                <div class="product-info">
+                    <span class="product-tag">大 象</span>
+                    <h3 class="product-name">招财大象</h3>
+                    <p class="product-desc">吸水聚财，旺事业</p>
+                    <p class="product-usage">宜摆于大门两侧或客厅财位<br>助家宅财气盈盈</p>
+                </div>
+            </div>
+
+            <div class="product-card fade-in">
+                <div class="product-image">🦚</div>
+                <div class="product-info">
+                    <span class="product-tag">孔 雀</span>
+                    <h3 class="product-name">开运孔雀</h3>
+                    <p class="product-desc">化煞辟邪，旺人丁</p>
+                    <p class="product-usage">添贵人运，助事业腾飞<br>摆于客厅或办公室</p>
+                </div>
+            </div>
+
+            <div class="product-card fade-in">
+                <div class="product-image">🍶</div>
+                <div class="product-info">
+                    <span class="product-tag">葫 芦</span>
+                    <h3 class="product-name">福禄葫芦</h3>
+                    <p class="product-desc">化病解灾，吸煞纳福</p>
+                    <p class="product-usage">调理五脏，护佑平安<br>宜挂于床头或病符方位</p>
+                </div>
+            </div>
+
+            <div class="product-card fade-in">
+                <div class="product-image">💎</div>
+                <div class="product-info">
+                    <span class="product-tag">聚 宝 盆</span>
+                    <h3 class="product-name">聚宝盆</h3>
+                    <p class="product-desc">吸纳财气，固守财富</p>
+                    <p class="product-usage">旺宅中宫，财源广进<br>宜置于客厅财位</p>
+                </div>
+            </div>
+
+            <div class="product-card fade-in">
+                <div class="product-image">🐟</div>
+                <div class="product-info">
+                    <span class="product-tag">鲤鱼跃龙门</span>
+                    <h3 class="product-name">鲤鱼跃龙门</h3>
+                    <p class="product-desc">催旺学业，助事业进阶</p>
+                    <p class="product-usage">步步高升，飞黄腾达<br>宜摆书房或办公桌</p>
+                </div>
+            </div>
+
+            <div class="product-card fade-in">
+                <div class="product-image">🧭</div>
+                <div class="product-info">
+                    <span class="product-tag">风水罗盘</span>
+                    <h3 class="product-name">风水罗盘</h3>
+                    <p class="product-desc">定宅立向，分金定穴</p>
+                    <p class="product-usage">专业调理必备器物<br>配合上门堪舆使用</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider fade-in">* * *</div>
+
+        <p class="section-subtitle fade-in" style="font-size: 17px; color: var(--primary);">
+            具体款式与价格，请致电咨询。
+        </p>
+    </section>
+
+    <!-- 联系方式 -->
+    <section class="contact">
+        <p class="contact-text">预约咨询 · 堪舆服务 · 器物请购</p>
+        <p class="contact-phone">请填写您的联系电话</p>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>卦馆 · 传承易经智慧 · 助有缘人趋吉避凶</p>
+    </footer>
+
+    <!-- 滚动动画脚本 -->
+    <script>
+        // 滚动显示动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
